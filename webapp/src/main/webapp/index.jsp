@@ -3,6 +3,6 @@
 
 Hello, Vijay!  
 
-CHECK GIT SSH
+AUTO CHECK GIT SSH
 
 </html>
