@@ -3,6 +3,6 @@
 
 Hello, Vijay!  
 
-AUTO CHECK GIT SSH WITH TOMCAT DEPLOYMENT
+Deployment Done through Scripting Language
 
 </html>
