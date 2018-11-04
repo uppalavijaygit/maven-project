@@ -1,25 +1,40 @@
-pipeline{
+pipeline {
     agent any
-    parameters{
-        string (name:'tomcat-dev', defaultValue: '18.224.22.2', discripton:'staging sever')
-        string (name:'tomcat-prod', defaultValue: '3.16.56.136', discripton:'staging sever')
+
+    parameters {
+         string(name: 'tomcat_dev', defaultValue: '18.224.22.2', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: '3.16.56.136', description: 'Production Server')
     }
 
-    triggers{
-        pollSCM('* * * * *')
-    }
+    triggers {
+         pollSCM('* * * * *')
+     }
 
-    stages{
-        parallel{
-            stage('Deployment to Staging'){
-                steps{
-                    sh "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat-dev}:/var/lib/tomcat7/webapps"
+stages{
+        stage('Build'){
+            steps {
+                sh 'mvn clean package'
+            }
+            post {
+                success {
+                    echo 'Now Archiving...'
+                    archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
+        }
 
-            stage('Deployment to PDC'){
-                steps{
-                    sh "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat-prod}:/var/lib/tomcat7/webapps"
+        stage ('Deployments'){
+            parallel{
+                stage ('Deploy to Staging'){
+                    steps {
+                        sh "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                    }
+                }
+
+                stage ("Deploy to Production"){
+                    steps {
+                        sh "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                    }
                 }
             }
         }
