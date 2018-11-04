@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        echo "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/opt/apache-tomcat-7.0.91/webapps"
+                        echo "scp -i V:\Program Files\Servers\NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/opt/apache-tomcat-7.0.91/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        echo "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/opt/apache-tomcat-7.0.91/webapps"
+                        echo "scp -i V:\Program Files\Servers\NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/opt/apache-tomcat-7.0.91/webapps"
                     }
                 }
             }
