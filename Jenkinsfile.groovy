@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                         bat "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/opt/apache-tomcat-7.0.91/webapps"
+                         bat "pscp -scp -i "V:\\Program Files\\Servers\\NewKeyPair.pem" "C:\\Program Files (x86)\\Jenkins\\workspace\\maven-project\\webapp\\target\\webapp.war" ec2-user@${params.tomcat_dev}:/opt/apache-tomcat-7.0.91/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        bat "scp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/opt/apache-tomcat-7.0.91/webapps"
+                        bat "winscp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/opt/apache-tomcat-7.0.91/webapps"
                     }
                 }
             }
