@@ -27,7 +27,8 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                          bat "winscp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/opt/apache-tomcat-7.0.91/webapps"
+                        bat "set path=%path%;V:/Program Files/WinSCP/"
+                        bat "winscp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/opt/apache-tomcat-7.0.91/webapps"
                     }
                 }
 
