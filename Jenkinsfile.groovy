@@ -14,6 +14,8 @@ stages{
         stage('Build'){
             steps {
                 bat 'mvn clean package'
+                bat 'cd C:/Program Files (x86)/Jenkins/workspace/maven-project' 
+                bat 'set path=%path%;V:/Program Files/WinSCP/'
             }
             post {
                 success {
@@ -27,8 +29,6 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        bat"cd C:/Program Files (x86)/Jenkins/workspace/maven-project" 
-                        bat "set path=%path%;V:/Program Files/WinSCP/"
                         bat "winscp -i V:/Program Files/Servers/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/opt/apache-tomcat-7.0.91/webapps"
                     }
                 }
