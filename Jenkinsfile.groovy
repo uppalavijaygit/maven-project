@@ -14,8 +14,7 @@ stages{
         stage('Build'){
             steps {
                 bat 'mvn clean package'
-                bat 'cd C:/Program Files (x86)/Jenkins/workspace/maven-project' 
-                bat 'set path=%path%;V:/Program Files/WinSCP/'
+                
             }
             post {
                 success {
